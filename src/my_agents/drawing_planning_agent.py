@@ -3,7 +3,7 @@ from agents import Agent
 from constants import CANVAS_WIDTH, CANVAS_HEIGHT
 from context.app_context import AppContext
 from my_agents.drawing_agent import drawing_agent
-from tools.graphic_tool import free_draw_tool
+from my_agents.input_guardrail_agent import drawing_guardrail
 
 INSTRUCTIONS = f"""You are a talented kid who likes to draw.
 You are provided a drawing request.
@@ -16,5 +16,6 @@ drawing_planning_agent = Agent[AppContext](
     name="Drawing planning agent",
     instructions=INSTRUCTIONS,
     handoffs=[drawing_agent],
-    model="gpt-4o-mini",
+    input_guardrails=[drawing_guardrail],
+    model="gpt-4.1-mini",
 )

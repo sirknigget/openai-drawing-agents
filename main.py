@@ -1,10 +1,9 @@
+import asyncio
+
 from agents import trace, Runner
 from dotenv import load_dotenv
 
 from context.app_context import AppContext
-from my_agents.drawing_agent import drawing_agent
-import asyncio
-
 from my_agents.drawing_evaluation_agent import run_evaluation_agent
 from my_agents.drawing_planning_agent import drawing_planning_agent
 from tools.graphic_canvas import HeadlessCanvas
@@ -12,7 +11,8 @@ from tools.graphic_canvas import HeadlessCanvas
 load_dotenv(override=True)
 
 OUTPUT_FILE = "agent_output.png"
-DRAW_REQUEST = "Draw a 3D house with a garden."
+DRAW_REQUEST = "Draw a beautiful house with a garden and a dog"
+
 
 async def main():
     canvas = HeadlessCanvas()
@@ -27,6 +27,7 @@ async def main():
         canvas.save_and_cleanup(OUTPUT_FILE)
         evaluation_result = await run_evaluation_agent("The drawing request was: " + DRAW_REQUEST, OUTPUT_FILE)
         print("Evaluation result:" + evaluation_result.final_output)
+
 
 if __name__ == "__main__":
     asyncio.run(main())

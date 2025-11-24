@@ -14,7 +14,7 @@ drawing_agent = Agent[AppContext](
     name="Drawing agent",
     instructions=INSTRUCTIONS,
     tools=[free_draw_tool],
-    model="gpt-4o-mini",
+    model="gpt-4.1-mini",
 )
 
-print (free_draw_tool)
+print(free_draw_tool)
