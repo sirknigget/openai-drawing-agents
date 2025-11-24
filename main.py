@@ -4,26 +4,29 @@ from dotenv import load_dotenv
 from context.app_context import AppContext
 from my_agents.drawing_agent import drawing_agent
 import asyncio
+
+from my_agents.drawing_evaluation_agent import run_evaluation_agent
+from my_agents.drawing_planning_agent import drawing_planning_agent
 from tools.graphic_canvas import HeadlessCanvas
 
 load_dotenv(override=True)
 
-CANVAS_WIDTH, CANVAS_HEIGHT = 640, 480
 OUTPUT_FILE = "agent_output.png"
-
+DRAW_REQUEST = "Draw a 3D house with a garden."
 
 async def main():
     canvas = HeadlessCanvas()
     canvas.initialize(640, 480)
     app_ctx = AppContext(canvas=canvas)
-    with trace("Drawing agent"):
-        print("Starting drawing agent")
-        result = await Runner.run(drawing_agent,
-                                  f"The canvas dimensions are {CANVAS_WIDTH}, {CANVAS_HEIGHT}. Draw a blue 3D diamond.",
+    with trace("Drawing agents"):
+        print("Starting drawing planning agent")
+        result = await Runner.run(drawing_planning_agent,
+                                  f"{DRAW_REQUEST}",
                                   context=app_ctx)
         print("Agent response:" + result.final_output)
-    canvas.save_and_cleanup(OUTPUT_FILE)
-
+        canvas.save_and_cleanup(OUTPUT_FILE)
+        evaluation_result = await run_evaluation_agent("The drawing request was: " + DRAW_REQUEST, OUTPUT_FILE)
+        print("Evaluation result:" + evaluation_result.final_output)
 
 if __name__ == "__main__":
     asyncio.run(main())
