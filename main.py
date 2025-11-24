@@ -22,7 +22,8 @@ async def main():
         print("Starting drawing planning agent")
         result = await Runner.run(drawing_planning_agent,
                                   f"{DRAW_REQUEST}",
-                                  context=app_ctx)
+                                  context=app_ctx,
+                                  max_turns=60)
         print("Agent response:" + result.final_output)
         canvas.save_and_cleanup(OUTPUT_FILE)
         evaluation_result = await run_evaluation_agent("The drawing request was: " + DRAW_REQUEST, OUTPUT_FILE)

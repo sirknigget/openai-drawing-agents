@@ -17,5 +17,5 @@ drawing_planning_agent = Agent[AppContext](
     instructions=INSTRUCTIONS,
     handoffs=[drawing_agent],
     input_guardrails=[drawing_guardrail],
-    model="gpt-4.1-mini",
+    model="gpt-4o-mini",
 )
