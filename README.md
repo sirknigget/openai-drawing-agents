@@ -12,3 +12,8 @@ Uses a wrapper class around the Pillow library for exposing a free draw API to t
 
 3. Evaluation agent:
    Receives the drawing as image input along with the original request, and provides feedback.
+
+This project uses uv as the environment manager.
+
+Run using:
+uv run python main.py
